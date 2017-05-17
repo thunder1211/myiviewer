@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>iViewer lightbox example</title>
+    <!-- Lightbox example by Hay Kranen < http://github.com/hay > -->
+
+    <link rel="stylesheet" href="style.css" />
+
+    <!--[if lt IE 9 ]>
+    <style>
+        /* IE < 9 doesn't display the image for strange reasons... */
+        #iviewer .viewer {
+            display: block;
+        }
+    </style>
+    <![endif]-->
+</head>
+<body>
+    <div id="iviewer">
+        <div class="loader"></div>
+        <div class="viewer"></div>
+        <ul class="controls">
+            <li class="zoomin"></li>
+            <li class="zoomout"></li>
+        </ul>
+    </div>
+
+    <script type="text/javascript" src="../jquery.js" ></script>
+    <script type="text/javascript" src="../jqueryui.js" ></script>
+    <script type="text/javascript" src="../jquery.mousewheel.min.js" ></script>
+    <script type="text/javascript" src="../../jquery.iviewer.js" ></script>
+    <script src="main.js"></script>
+<script type="text/javascript">
+var SSS = null;
+$(function () {
+    // var imgSrc = window.opener.__ImgSrc;
+    // alert(imgSrc);
+});
+(function($) {
+    var WIN_imgSrc = window.opener.__ImgSrc;
+    function init() {
+        var viewer = $("#iviewer .viewer").
+            width($(window).width()).
+            height($(window).height()).
+            iviewer({
+                ui_disabled : true,
+                zoom : 'fit',
+                src: null,
+                onFinishLoad : function(ev) {
+                    $("#iviewer .loader").fadeOut();
+                    $("#iviewer .viewer").fadeIn();
+                }
+            }
+        );
+
+        $("#iviewer .zoomin").click(function(e) {
+            e.preventDefault();
+            viewer.iviewer('zoom_by', 1);
+        });
+
+        $("#iviewer .zoomout").click(function(e) {
+            e.preventDefault();
+            viewer.iviewer('zoom_by', -1);
+        });
+        open(WIN_imgSrc);
+    }
+
+    function open(src) {
+        $("#iviewer").fadeIn().trigger('fadein');
+        $("#iviewer .loader").show();
+        $("#iviewer .viewer").hide();
+
+        var viewer = $("#iviewer .viewer")
+            .iviewer('loadImage', src)
+            .iviewer('set_zoom', 'fit');
+    }
+
+    $('.go').click(function(e) {
+        e.preventDefault();
+        var src = $(this).attr('href');
+        open(src);
+    });
+
+    $("#iviewer").bind('fadein', function() {
+        $(window).keydown(function(e) {
+            if (e.which == 27) close();
+        });
+        $(window).resize(function(event) {
+            // alert(1);
+            var viewer = $("#iviewer .viewer").
+                width($(window).width() - 80).
+                height($(window).height()).
+                iviewer('loadImage', WIN_imgSrc).
+                iviewer('set_zoom', 'fit');
+        });
+    });
+
+    init();
+})(jQuery);
+</script>
+</body>
+</html>

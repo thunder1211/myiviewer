@@ -264,9 +264,9 @@ $.widget( "ui.iviewer", $.ui.mouse, {
 
         this.current_zoom = this.options.zoom;
 
-        if(this.options.src === null){
-            return;
-        }
+        // if(this.options.src === null){
+        //     return;
+        // }
 
         this.container = this.element;
 
@@ -421,6 +421,7 @@ $.widget( "ui.iviewer", $.ui.mouse, {
 
     loadImage: function( src )
     {
+        if (src == undefined || src == null) return;
         this.current_zoom = this.options.zoom;
         var me = this;
 

@@ -20,7 +20,31 @@
     <a class="go" href="../test_image.jpg" rel="gallery">Show lightbox!</a>
     <br />
     <a class="go" href="../test_image2.jpg" rel="gallery">Show another lightbox!</a>
-    
+    <br />
+    <a class="go" href="http://pic.qiantucdn.com/58pic/26/35/54/42B58PICnu5_1024.jpg" rel="gallery">58pic</a>
+
+
+    <br />
+    <a class="go" href="http://pic.qiantucdn.com/58pic/15/18/06/62v58PICN6r_1024.jpg" rel="gallery">58pic</a>
+    <br />
+    <a class="go" href="http://pic.qiantucdn.com/58pic/11/27/70/93s58PICixq.jpg" rel="gallery">58pic</a>
+    <br />
+    <a class="go" href="http://pic.qiantucdn.com/58pic/21/78/01/50v58PIC3rP_1024.jpg" rel="gallery">58pic</a>
+    <br />
+    <a class="go" href="http://pic.qiantucdn.com/58pic/23/12/64/92G58PIC93T_1024.jpg" rel="gallery">58pic</a>
+    <br />
+    <a class="go" href="http://pic.qiantucdn.com/58pic/17/20/16/94h58PICpCY_1024.jpg" rel="gallery">58pic</a>
+    <br />
+    <a class="go" href="http://pic.qiantucdn.com/58pic/11/21/14/79X58PIChPC.jpg" rel="gallery">58pic</a>
+    <br />
+    <a class="go" href="http://pic.qiantucdn.com/58pic/12/86/12/79t58PICjzn.jpg" rel="gallery">58pic</a>
+    <br />
+    <a class="go" href="http://pic.qiantucdn.com/58pic/11/22/18/27f58PICEDH.jpg" rel="gallery">58pic</a>
+    <br />
+    <a class="go" href="http://pic.qiantucdn.com/58pic/20/13/37/48x58PICsKu_1024.jpg" rel="gallery">58pic</a>
+    <br />
+    <a class="go" href="http://pic.qiantucdn.com/58pic/23/13/06/580977f5207bf_1024.jpg" rel="gallery">58pic</a>
+
     <div id="iviewer">
         <div class="loader"></div>
 
@@ -29,20 +53,41 @@
         <ul class="controls">
             <li class="close"></li>
             <li class="zoomin"></li>
-            <li class="zoomout"></li>          
+            <li class="zoomout"></li>
+            <li class="rotate_left"></li>
+            <li class="rotate_right"></li>
         </ul>
 
-	 <div class="info" >            		
-	 	<a href="#" id="prevLink" class="go" style="width: 40px;"><img src="img/btn_prev.png"></a>
+	 <div class="info" >
+	 	<a href="#" class="prevLink" id="prevLink" class="go" style="width: 40px;"><img src="img/btn_prev.png"></a>
 		<p id="imageCount"></p>
-		<a href="#" id="nextLink" class="go" style="width: 40px;"><img src="img/btn_next.png"></a>       
-        </div>        
+		<a href="#" class="nextLink" id="nextLink" class="go" style="width: 40px;"><img src="img/btn_next.png"></a>
+        <div class="thumbs">
+            <ul class="thumbsBody"></ul>
+        </div>
+        </div>
     </div>
-
+<div>
+    <a class="winOpen" href="winopen.html">winOpen</a>
+    <a class="winOpen" href="winopen.html?test">winOpen</a>
+    <a class="winOpen" href="http://pic.qiantucdn.com/58pic/20/13/37/48x58PICsKu_1024.jpg">winOpen</a>
+    <a class="winOpen" href="http://pic.qiantucdn.com/58pic/23/13/06/580977f5207bf_1024.jpg">winOpen</a>
+    <a class="winOpen" href="http://pic.qiantucdn.com/58pic/21/78/01/50v58PIC3rP_1024.jpg">winOpen高</a>
+</div>
     <script type="text/javascript" src="../jquery.js" ></script>
     <script type="text/javascript" src="../jqueryui.js" ></script>
     <script type="text/javascript" src="../jquery.mousewheel.min.js" ></script>
     <script type="text/javascript" src="../../jquery.iviewer.js" ></script>
     <script src="main.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('.winOpen').on('click', function(event) {
+            event.preventDefault();
+            var imgSrc = $(event.target).attr('href');
+            window.__ImgSrc = imgSrc;
+            window.open('winopen.html', '', 'location=yes, toolbar=no, width=600, height=600');
+        });
+    });
+</script>
 </body>
 </html>

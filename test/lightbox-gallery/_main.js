@@ -1,18 +1,18 @@
 (function($) {
     var gallery = new Array();
-    function init() {
+    function init() {	
         var viewer = $("#iviewer .viewer").
         width($(window).width() - 80).
-        height($(window).height() - 60);
-        viewer.iviewer({
+        height($(window).height()).
+        iviewer({
             ui_disabled : true,
             zoom : 'fit',
-            src: null,
             onFinishLoad : function(ev) {
                 $("#iviewer .loader").fadeOut();
-                $("#iviewer .viewer").fadeIn();
+                $("#iviewer .viewer").fadeIn();			
             }
-        });
+        }
+        );
 
         $("#iviewer .zoomin").click(function(e) {
             e.preventDefault();
@@ -23,23 +23,14 @@
             e.preventDefault();
             viewer.iviewer('zoom_by', -1);
         });
-        $("#iviewer .rotate_left").click(function(e) {
-            e.preventDefault();
-            viewer.iviewer('angle', -90);
-        });
-        $("#iviewer .rotate_right").click(function(e) {
-            e.preventDefault();
-            viewer.iviewer('angle', 90);
-        });
 
         /*
          * Populate gallery array.
          * NOTE: In order to add image to gallery, Anchor tag of images that are to be opened in lightbox, should have attribute 'rel' set to 'gallery'.
          */
         $( "a[rel='gallery']" ).each(function( index ) {
-            gallery[index] =  $( this ).attr("href");
+            gallery[index] =  $( this ).attr("href");	    
         });
-        showThumbs();
     }
 
     function open(src) {
@@ -56,7 +47,7 @@
         $("#iviewer").fadeOut().trigger('fadeout');
     }
 
-    $('[rel="gallery"], #iviewer .info .prevLink, #iviewer .info .nextLink').click(function(e) {
+    $('.go').click(function(e) {
         e.preventDefault();
         var src = $(this).attr('href');
         open(src);
@@ -79,16 +70,16 @@
     *  refreshNextPrevLinks() refreshes Next and previous links
     */
     function refreshNextPrevLinks(src){
-    	// console.log('RefreshNextPrevLinks called. src: '+src);
+	console.log('RefreshNextPrevLinks called. src: '+src);
         var imageIndex = 0;
         //Iterate over gallery and find the index of current image.
         for (i=0;i<gallery.length;i++)
-        {
-    	 if(src == gallery[i]){
+        {         
+	 if(src == gallery[i]){
                 imageIndex = i;
             }
         }
-
+	
         //Setting Next link
         var nextLink = document.getElementById('nextLink');
         if(gallery.length > imageIndex+1){
@@ -97,7 +88,7 @@
         }else{
             nextLink.href = "#";
             nextLink.style.visibility = 'hidden';
-        }
+        }	
 
         //Setting Prev link
         var prevLink = document.getElementById('prevLink');
@@ -107,32 +98,15 @@
         }else{
             prevLink.setAttribute("href", "#");
             prevLink.style.visibility = 'hidden';
-        }
+        }	
 
-        document.getElementById('imageCount').innerHTML= "Image: "+ (imageIndex+1) + "/" + gallery.length;
-        //缩略图激活选中图片
-        $('#iviewer .info .thumbs li').removeClass('active').eq(imageIndex).addClass('active');
-    }
-    function showThumbs() {
-        var result_htm = ''
-        for (var i = 0; i < gallery.length; i++) {
-            var thumb_src = gallery[i],
-                thumb_htm = '<li><img src="'+ thumb_src +'"></li>';
-            result_htm += thumb_htm;
-        };
-        $(result_htm).appendTo('#iviewer .info .thumbs .thumbsBody');
-        $('#iviewer .info .thumbs').on('click', 'img', function(e) {
-            e.preventDefault();
-            var thumb_src = $(e.target).attr('src');
-            open(thumb_src);
-            refreshNextPrevLinks(thumb_src);
-        });
+        document.getElementById('imageCount').innerHTML= "Image: "+ (imageIndex+1) + "/" + gallery.length;	
     }
 
     //Binding keypress event of left arrow and right arrow button. Image would be changed, if right arrow or left arrow button is pressed.
     $(document).keyup(function(e) {
         //left arrow key
-        if (e.keyCode == 37) {
+        if (e.keyCode == 37) { 
             if($("#prevLink").attr("href") != "#"){
                 $("#prevLink").click();
             }
